@@ -57,7 +57,7 @@ parser.parseFile(args[0], function (err, beatmap) {
         fnf.song.player1 = "bf"
         fnf.song.player2 = "gf"
         fnf.song.speed = 3.1
-        fnf.song.song = "Ballistic"
+        fnf.song.song = args[1] || ""
         fnf.song.sectionLengths = []
         fnf.song.validScore = true
 
