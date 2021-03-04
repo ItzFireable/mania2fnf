@@ -1,5 +1,6 @@
 # mania2fnf
 A simple command line based osu!mania to FNF converter.
+Long notes are NOT supported yet due to the parsed used.
 
 # Installation & usage
 - Install node.js (https://nodejs.org/en/)
