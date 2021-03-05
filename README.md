@@ -1,11 +1,11 @@
 # mania2fnf
-A simple command line based osu!mania to FNF converter.
-Long notes are NOT supported yet due to the parsed used.
+A simple command line based osu!mania to FNF converter. 
+Long notes are NOT supported yet due to the parsed used (POSSIBLY FIXED)
 
 # Installation & usage
 - Install node.js (https://nodejs.org/en/)
 - Clone the repository
-- Run npm install
+- ~~Run npm install~~ no longer required due to custom release of osu!parser
 - Run node index.js with the .osu file as an argument (file path, NOT THE FILE)
 - Enjoy the outcome.
 
