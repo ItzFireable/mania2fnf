@@ -47,7 +47,7 @@ parser.parseFile(args[0], function (err, beatmap) {
             fnf.song.notes[usedIndex].sectionNotes[fnf.song.notes[usedIndex].sectionNotes.length] = [
                 Math.round(beatmap.hitObjects[index].startTime),
                 Math.floor(beatmap.hitObjects[index].position[0] * 4 / 512),
-                0
+                beatmap.hitObjects[index].endTime || 0
             ]
         })
         
