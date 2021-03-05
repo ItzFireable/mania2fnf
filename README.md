@@ -7,6 +7,7 @@ Long notes are NOT supported yet due to the parsed used (POSSIBLY FIXED)
 - Clone the repository
 - ~~Run npm install~~ no longer required due to custom release of osu!parser
 - Run node index.js with the .osu file as an argument (file path, NOT THE FILE)
+- ^(``node index.js "filepath/song.osu"*required "song name"*optional``)
 - Enjoy the outcome.
 
 By default, it replaces Whitty's Ballistic. This will be changed soon.
