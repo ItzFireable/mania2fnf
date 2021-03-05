@@ -6,10 +6,8 @@ Long notes are NOT supported yet due to the parsed used (POSSIBLY FIXED)
 - Install node.js (https://nodejs.org/en/)
 - Clone the repository
 - ~~Run npm install~~ no longer required due to custom release of osu!parser
-- Run node index.js with the .osu file as an argument (file path, NOT THE FILE)
-- ^ ``node index.js "filepath/song.osu"*required "song name"*optional``
+- Run node index.js with the .osu file as an argument (required) and a song name to replace in files (optional, defaults to Whitty's Ballistic)
+- ^ ``node index.js "filepath/song.osu" "song name"``
 - Enjoy the outcome.
-
-By default, it replaces Whitty's Ballistic. This will be changed soon.
 
 ## YOU WILL NEED TO CONVERT THE AUDIO YOURSELF, THIS IS ONLY FOR .OSU FILES
