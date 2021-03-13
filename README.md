@@ -14,3 +14,4 @@ Video tutorial:
 https://www.youtube.com/watch?v=TnW9cWJ0ilM
 
 ## YOU WILL NEED TO CONVERT THE AUDIO YOURSELF, THIS IS ONLY FOR .OSU FILES
+## FNF ONLY ACCEPTS .OGG FILES
