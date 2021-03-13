@@ -1,0 +1,10 @@
+{
+  "name": "mania2fnf",
+  "version": "0.1.0",
+  "author": "Fireable",
+  "description": "Converts osu!mania to FNF",
+  "main": "index.js",
+  "dependencies": {
+    "osu-parser": "^0.3.3"
+  }
+}
