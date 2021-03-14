@@ -58,47 +58,72 @@ parser.parseFile(args[0], function (err, beatmap) {
         
         beatmap.timingPoints.forEach(function(item, index) {
             if (Math.round(1 / beatmap.timingPoints[index].beatLength * 1000 * 60) > 0 && usedBPM <= 0) {
-                usedBPM = Math.round(1 / beatmap.timingPoints[index].beatLength * 1000 * 60)
-            }
-            if (Math.round(1 / beatmap.timingPoints[index].beatLength * 1000 * 60) > 0) {
-                fnf.song.notes[index] = {
-                    "mustHitSection":true,
-                    "typeOfSection":0,
-                    "lengthInSteps":6400,
-                    "bpm":Math.round(1 / beatmap.timingPoints[index].beatLength * 1000 * 60),
-                    "changeBPM":true,
-                    "timePosition":beatmap.timingPoints[index].offset,
-                    "sectionNotes":[]
-                }
-            } else {
-                fnf.song.notes[index] = {
-                    "mustHitSection":true,
-                    "typeOfSection":0,
-                    "lengthInSteps":6400,
-                    "bpm":Math.round(1 / beatmap.timingPoints[index + 1].beatLength * 1000 * 60),
-                    "changeBPM":true,
-                    "timePosition":beatmap.timingPoints[index].offset,
-                    "sectionNotes":[]
-                }
+                usedBPM = Math.round(1 / beatmap.timingPoints[index].beatLength * 1000 * 60) / 2
             }
         })
 
+        fnf.song.notes[0] = {
+            "mustHitSection":true,
+            "typeOfSection":0,
+            "lengthInSteps":16,
+            "bpm":usedBPM,
+            "changeBPM":true,
+            "timePosition":beatmap.timingPoints[0].offset,
+            "sectionNotes":[]
+        }
+
         let prevSide = 0;
+        let usedIndex = 0;
+        let usedIndexFake = 0;
+
         beatmap.hitObjects.forEach(function(item, index) {
-            let usedIndex = 0;
 
-            fnf.song.notes.forEach(function(item2, index2) {
-                if (fnf.song.notes[index2].timePosition <= beatmap.hitObjects[index].startTime) {
-                    usedIndex = index2
-                }
-            })
+            if (prevSide == 0 && Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512) >= 4) {
+                fnf.song.notes.push({
+                    "mustHitSection":false,
+                    "typeOfSection":0,
+                    "lengthInSteps":16,
+                    "bpm":usedBPM,
+                    "changeBPM":false,
+                    "side":1,
+                    "timePosition":beatmap.hitObjects[index].startTime,
+                    "sectionNotes":[]
+                })
+                usedIndexFake = fnf.song.notes.length - 1
+                prevSide = 1
+            }
 
-            fnf.song.notes[usedIndex].sectionNotes[fnf.song.notes[usedIndex].sectionNotes.length] = [
-                Math.round(beatmap.hitObjects[index].startTime),
-                Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512),
-                beatmap.hitObjects[index].endTime -  beatmap.hitObjects[index].startTime || 0
-            ]
-            
+            if (prevSide == 1 && Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512) <= 3) {
+                fnf.song.notes.push({
+                    "mustHitSection":true,
+                    "typeOfSection":0,
+                    "lengthInSteps":16,
+                    "bpm":usedBPM,
+                    "changeBPM":false,
+                    "side":0,
+                    "timePosition":beatmap.hitObjects[index].startTime,
+                    "sectionNotes":[]
+                })
+                usedIndex = fnf.song.notes.length - 1
+                prevSide = 0
+            }
+
+            switch(prevSide) {
+                case 0:
+                    fnf.song.notes[usedIndex].sectionNotes.push([
+                        Math.round(beatmap.hitObjects[index].startTime),
+                        Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512),
+                        beatmap.hitObjects[index].endTime -  beatmap.hitObjects[index].startTime || 0
+                    ])
+                    break;
+                case 1:
+                    fnf.song.notes[usedIndexFake].sectionNotes.push([
+                        Math.round(beatmap.hitObjects[index].startTime),
+                        keycount - 1 - Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512),
+                        beatmap.hitObjects[index].endTime -  beatmap.hitObjects[index].startTime || 0
+                    ])
+                    break;
+            }      
         })
         
         fnf.song.bpm = usedBPM
