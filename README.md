@@ -13,5 +13,8 @@ A simple command line based osu!mania to FNF converter.
 Video tutorial:
 https://www.youtube.com/watch?v=TnW9cWJ0ilM
 
+Support server:
+https://discord.gg/vwWPQrJ
+
 ## YOU WILL NEED TO CONVERT THE AUDIO YOURSELF, THIS IS ONLY FOR .OSU FILES
 ## FNF ONLY ACCEPTS .OGG FILES
