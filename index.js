@@ -79,32 +79,10 @@ parser.parseFile(args[0], function (err, beatmap) {
         beatmap.hitObjects.forEach(function(item, index) {
 
             if (prevSide == 0 && Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512) >= 4) {
-                fnf.song.notes.push({
-                    "mustHitSection":false,
-                    "typeOfSection":0,
-                    "lengthInSteps":16,
-                    "bpm":usedBPM,
-                    "changeBPM":false,
-                    "side":1,
-                    "timePosition":beatmap.hitObjects[index].startTime,
-                    "sectionNotes":[]
-                })
-                usedIndexFake = fnf.song.notes.length - 1
                 prevSide = 1
             }
 
             if (prevSide == 1 && Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512) <= 3) {
-                fnf.song.notes.push({
-                    "mustHitSection":true,
-                    "typeOfSection":0,
-                    "lengthInSteps":16,
-                    "bpm":usedBPM,
-                    "changeBPM":false,
-                    "side":0,
-                    "timePosition":beatmap.hitObjects[index].startTime,
-                    "sectionNotes":[]
-                })
-                usedIndex = fnf.song.notes.length - 1
                 prevSide = 0
             }
 
