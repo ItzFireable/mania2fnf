@@ -7,7 +7,7 @@ A simple command line based osu!mania to FNF converter.
 - Open Command Prompt in the folder where index.js is.
 - ~~Run npm install~~ no longer required due to custom release of osu!parser
 - Run node index.js with the .osu file as an argument (required) and a song name to replace in files (optional, defaults to Whitty's Ballistic)
-- ^ ``node index.js "filepath/song.osu" "song name"``
+- ^ ``node index.js "filepath/song.osu" keycount "song name"``
 - Enjoy the outcome.
 
 Video tutorial:
