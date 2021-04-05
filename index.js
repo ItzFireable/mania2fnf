@@ -65,7 +65,7 @@ parser.parseFile(args[0], function (err, beatmap) {
         fnf.song.notes[0] = {
             "mustHitSection":true,
             "typeOfSection":0,
-            "lengthInSteps":16,
+            "lengthInSteps":160000,
             "bpm":usedBPM,
             "changeBPM":true,
             "timePosition":beatmap.timingPoints[0].offset,
@@ -77,31 +77,11 @@ parser.parseFile(args[0], function (err, beatmap) {
         let usedIndexFake = 0;
 
         beatmap.hitObjects.forEach(function(item, index) {
-
-            if (prevSide == 0 && Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512) >= 4) {
-                prevSide = 1
-            }
-
-            if (prevSide == 1 && Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512) <= 3) {
-                prevSide = 0
-            }
-
-            switch(prevSide) {
-                case 0:
-                    fnf.song.notes[usedIndex].sectionNotes.push([
-                        Math.round(beatmap.hitObjects[index].startTime),
-                        Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512),
-                        beatmap.hitObjects[index].endTime -  beatmap.hitObjects[index].startTime || 0
-                    ])
-                    break;
-                case 1:
-                    fnf.song.notes[usedIndexFake].sectionNotes.push([
-                        Math.round(beatmap.hitObjects[index].startTime),
-                        keycount - 1 - Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512),
-                        beatmap.hitObjects[index].endTime -  beatmap.hitObjects[index].startTime || 0
-                    ])
-                    break;
-            }      
+            fnf.song.notes[usedIndexFake].sectionNotes.push([
+                Math.round(beatmap.hitObjects[index].startTime),
+                keycount - 1 - Math.floor(beatmap.hitObjects[index].position[0] * keycount / 512),
+                beatmap.hitObjects[index].endTime -  beatmap.hitObjects[index].startTime || 0
+            ])  
         })
         
         fnf.song.bpm = usedBPM
