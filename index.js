@@ -17,18 +17,30 @@ parser.parseFile(args[0], function (err, beatmap) {
         
         beatmap.timingPoints.forEach(function(item, index) {
             if (Math.round(1 / beatmap.timingPoints[index].beatLength * 1000 * 60) > 0 && usedBPM <= 0) {
-                usedBPM = Math.round(1 / beatmap.timingPoints[index].beatLength * 1000 * 60) / 2
+                usedBPM = Math.round(1 / beatmap.timingPoints[index].beatLength * 1000 * 60)
             }
         })
 
-        fnf.song.notes[0] = {
-            "mustHitSection":true,
-            "typeOfSection":0,
-            "lengthInSteps":160000,
-            "bpm":usedBPM,
-            "changeBPM":true,
-            "timePosition":beatmap.timingPoints[0].offset,
-            "sectionNotes":[]
+        if (keycount > 4) {
+            fnf.song.notes[0] = {
+                "mustHitSection":false,
+                "typeOfSection":0,
+                "lengthInSteps":160000,
+                "bpm":usedBPM,
+                "changeBPM":true,
+                "timePosition":beatmap.timingPoints[0].offset,
+                "sectionNotes":[]
+            }
+        } else {
+            fnf.song.notes[0] = {
+                "mustHitSection":true,
+                "typeOfSection":0,
+                "lengthInSteps":160000,
+                "bpm":usedBPM,
+                "changeBPM":true,
+                "timePosition":beatmap.timingPoints[0].offset,
+                "sectionNotes":[]
+            }
         }
 
         beatmap.hitObjects.forEach(function(item, index) {
